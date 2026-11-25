@@ -58,7 +58,40 @@
         "is_pushable": false,
         "is_pushable_by_piston": false
       },
-      "minecraft:fire_immune": {}
+      "minecraft:fire_immune": {},
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "must_see": false,
+        "reselect_targets": true,
+        "attack_interval": {
+          "min": 1,
+          "max": 2
+        },
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "player"
+            },
+            "max_dist": 40
+          }
+        ]
+      },
+      "minecraft:behavior.melee_attack": {
+        "priority": 3,
+        "cooldown_time": 1.8,
+        "speed_multiplier": 1.15,
+        "track_target": true,
+        "reach_multiplier": 2.5
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 8,
+        "speed_multiplier": 0.8
+      }
     },
     "component_groups": {},
     "events": {}
