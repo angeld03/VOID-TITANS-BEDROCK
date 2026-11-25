@@ -22,5 +22,8 @@ Open `VOID-TITANS-BEDROCK.mcaddon` with Minecraft Bedrock. Activate the Behavior
 /summon voidtitans:void_titan
 ```
 
+## Rebuild from source
+With Python 3.10+ installed, run `python tools/build.py` from the repository root. The script validates JSON and pack references, then writes the `.mcaddon` and two `.mcpack` files into `dist/`.
+
 ## Important status note
 This is a development prototype, not a finished/game-tested release. JSON syntax, pack linking, reference paths and archive integrity have been checked. It still needs import and in-game testing in the target Bedrock build. The model, texture, combat choreography, phases, attack effects and sounds are planned for further iterations.
