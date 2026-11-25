@@ -1,0 +1,58 @@
+name: Build and publish VOID TITANS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: void-titans-release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate and package add-on
+        run: python tools/build.py
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: VOID-TITANS-BEDROCK-packages
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish latest downloadable release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: bedrock-build-${{ github.run_number }}
+          name: VOID TITANS — Build ${{ github.run_number }}
+          body: |
+            Automated Minecraft Bedrock add-on build.
+
+            Download VOID-TITANS-BEDROCK.mcaddon to import both packs.
+            Individual Behavior and Resource .mcpack files are also attached.
+
+            This is a development build. In-game validation is tracked in docs/VERIFICATION.md.
+          files: |
+            dist/VOID-TITANS-BEDROCK.mcaddon
+            dist/VOID-TITANS-Behavior.mcpack
+            dist/VOID-TITANS-Resources.mcpack
+          make_latest: true
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
