@@ -1,0 +1,30 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "VOID TITANS — Behavior",
+    "description": "Boss logic, combat AI, loot and summoning systems for VOID TITANS.",
+    "uuid": "28a3d2c4-1e71-4f6f-8e42-91a9d54fb100",
+    "version": [
+      0,
+      1,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "VOID TITANS behavior data",
+      "type": "data",
+      "uuid": "3ab8e5c7-62f4-4b9e-90f1-2c6d7a8b9c01",
+      "version": [
+        0,
+        1,
+        0
+      ]
+    }
+  ]
+}
