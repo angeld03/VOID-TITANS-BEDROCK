@@ -13,7 +13,7 @@ Minecraft Bedrock Edition 26.66, using the stable add-on pack format and the 1.2
 - [x] Resource Pack manifest linked to the Behavior Pack.
 - [x] First custom boss entity definition.
 - [x] Initial custom geometry and animation controller.
-- [ ] Pack icons and original boss texture.
+- [x] Pack icons and first original boss texture.
 - [ ] Build reproducible .mcaddon and individual .mcpack files.
 - [ ] Import into Minecraft and confirm both packs load.
 
