@@ -12,6 +12,12 @@
             {
               "moving": "query.modified_move_speed > 0.05"
             }
+          ],
+          "particle_effects": [
+            {
+              "effect": "void_aura",
+              "locator": "core"
+            }
           ]
         },
         "moving": {
@@ -21,6 +27,12 @@
           "transitions": [
             {
               "default": "query.modified_move_speed <= 0.05"
+            }
+          ],
+          "particle_effects": [
+            {
+              "effect": "void_aura",
+              "locator": "core"
             }
           ]
         }
