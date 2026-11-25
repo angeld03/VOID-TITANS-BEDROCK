@@ -1,0 +1,40 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "VOID TITANS — Resources",
+    "description": "Custom 3D models, textures, animations, particles and sounds for VOID TITANS.",
+    "uuid": "58c4e9a1-7f32-4d8e-a5b6-3c9d0e1f2a03",
+    "version": [
+      0,
+      1,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "VOID TITANS resource assets",
+      "type": "resources",
+      "uuid": "7d91f3b5-0a24-4c8e-b6d2-5f1a3c7e9b04",
+      "version": [
+        0,
+        1,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "28a3d2c4-1e71-4f6f-8e42-91a9d54fb100",
+      "version": [
+        0,
+        1,
+        0
+      ]
+    }
+  ]
+}
