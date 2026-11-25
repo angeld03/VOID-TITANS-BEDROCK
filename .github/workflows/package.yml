@@ -1,0 +1,82 @@
+name: VOID TITANS — Validate and Package
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate JSON and pack links
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          json_files = list(Path("behavior_pack").rglob("*.json")) + list(Path("resource_pack").rglob("*.json"))
+          for path in json_files:
+              with path.open(encoding="utf-8") as handle:
+                  json.load(handle)
+          bp = json.loads(Path("behavior_pack/manifest.json").read_text(encoding="utf-8"))
+          rp = json.loads(Path("resource_pack/manifest.json").read_text(encoding="utf-8"))
+          bp_uuid = bp["header"]["uuid"]
+          rp_uuid = rp["header"]["uuid"]
+          assert any(dep["uuid"] == bp_uuid for dep in rp.get("dependencies", [])), "Resource Pack must depend on the Behavior Pack UUID"
+
+          entity = json.loads(Path("behavior_pack/entities/void_titan.json").read_text(encoding="utf-8"))["minecraft:entity"]
+          client = json.loads(Path("resource_pack/entity/void_titan.entity.json").read_text(encoding="utf-8"))["minecraft:client_entity"]["description"]
+          geometry = json.loads(Path("resource_pack/models/entity/void_titan.geo.json").read_text(encoding="utf-8"))["minecraft:geometry"][0]["description"]["identifier"]
+          assert entity["description"]["identifier"] == client["identifier"], "Behavior/client entity identifiers do not match"
+          assert client["geometry"]["default"] == geometry, "Client entity geometry reference does not match geometry identifier"
+          assert Path("resource_pack/textures/entity/void_titan.png").is_file(), "Missing Void Titan texture"
+          assert Path("behavior_pack/pack_icon.png").is_file() and Path("resource_pack/pack_icon.png").is_file(), "Missing pack icon"
+          print(f"Validated {len(json_files)} JSON files and cross-pack references.")
+          PY
+
+      - name: Build .mcaddon and standalone .mcpack files
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile, ZIP_DEFLATED
+
+          def add_pack(zip_file, pack_dir, include_root):
+              base = Path(pack_dir)
+              for file in sorted(base.rglob("*")):
+                  if file.is_file():
+                      arcname = f"{pack_dir}/{file.relative_to(base)}" if include_root else str(file.relative_to(base))
+                      zip_file.write(file, arcname)
+
+          with ZipFile("VOID-TITANS-BEDROCK.mcaddon", "w", ZIP_DEFLATED) as z:
+              add_pack(z, "behavior_pack", True)
+              add_pack(z, "resource_pack", True)
+
+          with ZipFile("VOID-TITANS-Behavior.mcpack", "w", ZIP_DEFLATED) as z:
+              add_pack(z, "behavior_pack", False)
+
+          with ZipFile("VOID-TITANS-Resources.mcpack", "w", ZIP_DEFLATED) as z:
+              add_pack(z, "resource_pack", False)
+          PY
+
+      - name: Upload installable packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: void-titans-bedrock-packages
+          path: |
+            VOID-TITANS-BEDROCK.mcaddon
+            VOID-TITANS-Behavior.mcpack
+            VOID-TITANS-Resources.mcpack
+          if-no-files-found: error
+          retention-days: 30
