@@ -10,6 +10,18 @@
           ],
           "transitions": [
             {
+              "slam_windup": "query.variant == 1"
+            },
+            {
+              "slam_impact": "query.variant == 2"
+            },
+            {
+              "pulse_charge": "query.variant == 3"
+            },
+            {
+              "pulse_burst": "query.variant == 4"
+            },
+            {
               "moving": "query.modified_move_speed > 0.05"
             }
           ],
@@ -26,6 +38,18 @@
           ],
           "transitions": [
             {
+              "slam_windup": "query.variant == 1"
+            },
+            {
+              "slam_impact": "query.variant == 2"
+            },
+            {
+              "pulse_charge": "query.variant == 3"
+            },
+            {
+              "pulse_burst": "query.variant == 4"
+            },
+            {
               "default": "query.modified_move_speed <= 0.05"
             }
           ],
@@ -33,6 +57,76 @@
             {
               "effect": "void_aura",
               "locator": "core"
+            }
+          ]
+        },
+        "slam_windup": {
+          "animations": [
+            "slam_windup"
+          ],
+          "transitions": [
+            {
+              "slam_impact": "query.variant == 2"
+            },
+            {
+              "default": "query.variant == 0"
+            }
+          ],
+          "particle_effects": [
+            {
+              "effect": "void_aura",
+              "locator": "core"
+            }
+          ]
+        },
+        "slam_impact": {
+          "animations": [
+            "slam_impact"
+          ],
+          "transitions": [
+            {
+              "default": "query.variant == 0"
+            }
+          ],
+          "particle_effects": [
+            {
+              "effect": "impact",
+              "locator": "impact"
+            }
+          ]
+        },
+        "pulse_charge": {
+          "animations": [
+            "pulse_charge"
+          ],
+          "transitions": [
+            {
+              "pulse_burst": "query.variant == 4"
+            },
+            {
+              "default": "query.variant == 0"
+            }
+          ],
+          "particle_effects": [
+            {
+              "effect": "void_aura",
+              "locator": "core"
+            }
+          ]
+        },
+        "pulse_burst": {
+          "animations": [
+            "pulse_burst"
+          ],
+          "transitions": [
+            {
+              "default": "query.variant == 0"
+            }
+          ],
+          "particle_effects": [
+            {
+              "effect": "impact",
+              "locator": "impact"
             }
           ]
         }
