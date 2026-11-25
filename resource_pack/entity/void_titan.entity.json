@@ -27,6 +27,9 @@
       "spawn_egg": {
         "base_color": "#140d25",
         "overlay_color": "#9f42ff"
+      },
+      "particle_effects": {
+        "void_aura": "voidtitans:void_spark_aura"
       }
     }
   }
