@@ -2,34 +2,25 @@
 
 An original dark-fantasy boss expansion for Minecraft Bedrock Edition.
 
-## Project goal
-Create colossal custom 3D bosses with detailed geometry, bespoke textures, skeletal animations, phase-based combat, particles, sounds, loot and summoning items.
-
 ## Current target
-- Target game: Minecraft Bedrock 26.66 (minimum engine target: 1.26.0).
-- Pack architecture: Behavior Pack + Resource Pack.
-- Namespace: voidtitans.
-- First boss: The Void Titan.
-- First summon command: /summon voidtitans:void_titan.
+- Target: Minecraft Bedrock 26.66; pack engine baseline 1.26.0.
+- Architecture: linked Behavior Pack + Resource Pack.
+- Namespace: `voidtitans`.
+- First boss: **The Void Titan** (`voidtitans:void_titan`).
 
-## Repository layout
-- behavior_pack/: entity logic, AI, loot, items, functions and scripts.
-- resource_pack/: entity visuals, geometry, textures, animations, particles and sounds.
-- docs/: design notes, compatibility notes and testing checklist.
-- tools/: local validation and packaging helpers.
+## Current prototype features
+- Articulated custom humanoid geometry and first-pass texture.
+- Idle and walking animation sources.
+- Boss health bar, hostile player targeting, melee damage and loot table.
+- Additive purple core aura particle attached to a geometry locator.
+- Spawn egg definition and English/Spanish entity names.
 
-## Importing (once a release package is available)
-1. Download the latest .mcaddon release from GitHub Releases.
-2. Open it with Minecraft.
-3. Activate both VOID TITANS — Behavior and VOID TITANS — Resources in a test world.
-4. Enable experimental toggles only when a release explicitly requires them.
-5. Use /summon voidtitans:void_titan to summon the first boss.
+## Import
+Open `VOID-TITANS-BEDROCK.mcaddon` with Minecraft Bedrock. Activate the Behavior and Resource packs in a test world. To summon the boss, use:
 
-## Development policy
-- Keep behavior and resource packs linked by manifest UUIDs.
-- Validate all JSON files before committing.
-- Never mark a build as game-tested unless it has actually been imported and tested in Bedrock.
-- Keep release archives reproducible from source folders.
-- Never commit API keys, access tokens, private data or credentials.
+```mcfunction
+/summon voidtitans:void_titan
+```
 
-See PROJECT_STATUS.md for the implementation and verification state.
+## Important status note
+This is a development prototype, not a finished/game-tested release. JSON syntax, pack linking, reference paths and archive integrity have been checked. It still needs import and in-game testing in the target Bedrock build. The model, texture, combat choreography, phases, attack effects and sounds are planned for further iterations.
