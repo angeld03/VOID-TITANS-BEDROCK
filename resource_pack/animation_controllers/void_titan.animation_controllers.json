@@ -1,0 +1,30 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.voidtitans.void_titan": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "idle"
+          ],
+          "transitions": [
+            {
+              "moving": "query.modified_move_speed > 0.05"
+            }
+          ]
+        },
+        "moving": {
+          "animations": [
+            "walk"
+          ],
+          "transitions": [
+            {
+              "default": "query.modified_move_speed <= 0.05"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
