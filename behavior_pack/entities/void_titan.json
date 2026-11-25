@@ -1,0 +1,66 @@
+{
+  "format_version": "1.26.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "voidtitans:void_titan",
+      "is_spawnable": true,
+      "is_summonable": true
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "void_titan",
+          "monster",
+          "mob"
+        ]
+      },
+      "minecraft:health": {
+        "value": 850,
+        "max": 850
+      },
+      "minecraft:collision_box": {
+        "width": 2.8,
+        "height": 6.2
+      },
+      "minecraft:scale": {
+        "value": 1.35
+      },
+      "minecraft:movement": {
+        "value": 0.24
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:navigation.walk": {
+        "can_path_over_water": false,
+        "avoid_water": true,
+        "avoid_damage_blocks": true
+      },
+      "minecraft:jump.static": {},
+      "minecraft:follow_range": {
+        "value": 48
+      },
+      "minecraft:attack": {
+        "damage": 24
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1
+      },
+      "minecraft:boss": {
+        "name": "The Void Titan",
+        "hud_range": 90,
+        "should_darken_sky": true
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/void_titan.json"
+      },
+      "minecraft:experience_reward": "query.last_hit_by_player ? 180 : 0",
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:fire_immune": {}
+    },
+    "component_groups": {},
+    "events": {}
+  }
+}
