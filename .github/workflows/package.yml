@@ -1,4 +1,4 @@
-name: VOID TITANS — Validate and Package
+name: VOID TITANS - Validate and Package
 
 on:
   push:
@@ -14,63 +14,55 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-
-      - name: Validate JSON and pack links
+          python-version: '3.12'
+      - name: Validate JSON and cross-pack references
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-
-          json_files = list(Path("behavior_pack").rglob("*.json")) + list(Path("resource_pack").rglob("*.json"))
-          for path in json_files:
-              with path.open(encoding="utf-8") as handle:
-                  json.load(handle)
-          bp = json.loads(Path("behavior_pack/manifest.json").read_text(encoding="utf-8"))
-          rp = json.loads(Path("resource_pack/manifest.json").read_text(encoding="utf-8"))
-          bp_uuid = bp["header"]["uuid"]
-          rp_uuid = rp["header"]["uuid"]
-          assert any(dep["uuid"] == bp_uuid for dep in rp.get("dependencies", [])), "Resource Pack must depend on the Behavior Pack UUID"
-
-          entity = json.loads(Path("behavior_pack/entities/void_titan.json").read_text(encoding="utf-8"))["minecraft:entity"]
-          client = json.loads(Path("resource_pack/entity/void_titan.entity.json").read_text(encoding="utf-8"))["minecraft:client_entity"]["description"]
-          geometry = json.loads(Path("resource_pack/models/entity/void_titan.geo.json").read_text(encoding="utf-8"))["minecraft:geometry"][0]["description"]["identifier"]
-          assert entity["description"]["identifier"] == client["identifier"], "Behavior/client entity identifiers do not match"
-          assert client["geometry"]["default"] == geometry, "Client entity geometry reference does not match geometry identifier"
-          assert Path("resource_pack/textures/entity/void_titan.png").is_file(), "Missing Void Titan texture"
-          assert Path("behavior_pack/pack_icon.png").is_file() and Path("resource_pack/pack_icon.png").is_file(), "Missing pack icon"
-          print(f"Validated {len(json_files)} JSON files and cross-pack references.")
+          bp = Path('behavior_pack')
+          rp = Path('resource_pack')
+          files = list(bp.rglob('*.json')) + list(rp.rglob('*.json'))
+          for f in files:
+              json.loads(f.read_text(encoding='utf-8'))
+          bm = json.loads((bp/'manifest.json').read_text())
+          rm = json.loads((rp/'manifest.json').read_text())
+          assert any(d['uuid'] == bm['header']['uuid'] for d in rm['dependencies'])
+          be = json.loads((bp/'entities/void_titan.json').read_text())['minecraft:entity']
+          ce = json.loads((rp/'entity/void_titan.entity.json').read_text())['minecraft:client_entity']['description']
+          geo = json.loads((rp/'models/entity/void_titan.geo.json').read_text())['minecraft:geometry'][0]['description']['identifier']
+          particle = json.loads((rp/'particles/void_spark_aura.particle.json').read_text())['particle_effect']['description']['identifier']
+          assert be['description']['identifier'] == ce['identifier']
+          assert ce['geometry']['default'] == geo
+          assert ce['particle_effects']['void_aura'] == particle
+          for f in [rp/'textures/entity/void_titan.png', rp/'textures/particle/void_spark.png', bp/'pack_icon.png', rp/'pack_icon.png']:
+              assert f.is_file(), f'Missing {f}'
+          print(f'Validated {len(files)} JSON documents and asset references.')
           PY
-
-      - name: Build .mcaddon and standalone .mcpack files
+      - name: Build installable archives
         run: |
           python - <<'PY'
           from pathlib import Path
           from zipfile import ZipFile, ZIP_DEFLATED
-
-          def add_pack(zip_file, pack_dir, include_root):
-              base = Path(pack_dir)
-              for file in sorted(base.rglob("*")):
-                  if file.is_file():
-                      arcname = f"{pack_dir}/{file.relative_to(base)}" if include_root else str(file.relative_to(base))
-                      zip_file.write(file, arcname)
-
-          with ZipFile("VOID-TITANS-BEDROCK.mcaddon", "w", ZIP_DEFLATED) as z:
-              add_pack(z, "behavior_pack", True)
-              add_pack(z, "resource_pack", True)
-
-          with ZipFile("VOID-TITANS-Behavior.mcpack", "w", ZIP_DEFLATED) as z:
-              add_pack(z, "behavior_pack", False)
-
-          with ZipFile("VOID-TITANS-Resources.mcpack", "w", ZIP_DEFLATED) as z:
-              add_pack(z, "resource_pack", False)
+          def package(output, folder, prefix):
+              with ZipFile(output, 'w', ZIP_DEFLATED) as z:
+                  root = Path(folder)
+                  for p in sorted(root.rglob('*')):
+                      if p.is_file():
+                          name = f'{folder}/{p.relative_to(root)}' if prefix else str(p.relative_to(root))
+                          z.write(p, name)
+          package('VOID-TITANS-Behavior.mcpack', 'behavior_pack', False)
+          package('VOID-TITANS-Resources.mcpack', 'resource_pack', False)
+          with ZipFile('VOID-TITANS-BEDROCK.mcaddon', 'w', ZIP_DEFLATED) as z:
+              for folder in ['behavior_pack', 'resource_pack']:
+                  root = Path(folder)
+                  for p in sorted(root.rglob('*')):
+                      if p.is_file(): z.write(p, f'{folder}/{p.relative_to(root)}')
           PY
-
-      - name: Upload installable packages
+      - name: Upload packages
         uses: actions/upload-artifact@v4
         with:
           name: void-titans-bedrock-packages
@@ -79,4 +71,3 @@ jobs:
             VOID-TITANS-Behavior.mcpack
             VOID-TITANS-Resources.mcpack
           if-no-files-found: error
-          retention-days: 30
