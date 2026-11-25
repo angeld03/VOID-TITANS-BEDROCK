@@ -18,29 +18,25 @@ An original dark-fantasy boss add-on for Minecraft Bedrock Edition.
 - Automatic special-attack cycle: a telegraphed ground slam or a larger-radius void pulse.
 - Custom loot table and spawn egg localization in English and Spanish.
 
-## Install
-1. Download VOID-TITANS-BEDROCK.mcaddon from the latest GitHub Release.
-2. Open the file with Minecraft Bedrock to import both packs.
-3. Create or edit a world and activate **VOID TITANS — Behavior** and **VOID TITANS — Resources**.
-4. Enable cheats for the test world and summon the boss with:
+## Download and install
+- [Combined installer — VOID-TITANS-BEDROCK.mcaddon](https://raw.githubusercontent.com/angeld03/VOID-TITANS-BEDROCK/main/downloads/VOID-TITANS-BEDROCK.mcaddon)
+- [Behavior Pack — VOID-TITANS-Behavior.mcpack](https://raw.githubusercontent.com/angeld03/VOID-TITANS-BEDROCK/main/downloads/VOID-TITANS-Behavior.mcpack)
+- [Resource Pack — VOID-TITANS-Resources.mcpack](https://raw.githubusercontent.com/angeld03/VOID-TITANS-BEDROCK/main/downloads/VOID-TITANS-Resources.mcpack)
+
+For the easiest install, download the combined .mcaddon and open it with Minecraft Bedrock. Then activate both VOID TITANS packs in the world settings. Enable cheats for the test world and summon the boss with:
 
     /summon voidtitans:void_titan
 
-The spawn egg is also available in the creative inventory after enabling the add-on.
-
-## Direct download
-- [Latest combined .mcaddon](https://github.com/angeld03/VOID-TITANS-BEDROCK/releases/latest/download/VOID-TITANS-BEDROCK.mcaddon)
-- [Behavior Pack .mcpack](https://github.com/angeld03/VOID-TITANS-BEDROCK/releases/latest/download/VOID-TITANS-Behavior.mcpack)
-- [Resource Pack .mcpack](https://github.com/angeld03/VOID-TITANS-BEDROCK/releases/latest/download/VOID-TITANS-Resources.mcpack)
+The spawn egg should also appear in the Creative inventory after enabling the add-on.
 
 ## Build from source
 With Python 3.10+ installed:
 
     python tools/build.py
 
-The script validates JSON, manifests, references, model bone parents and PNG headers, then creates the combined .mcaddon and the individual .mcpack files in dist/.
+The script validates JSON, manifests, references, model bone parents and PNG headers, then creates the combined .mcaddon and individual .mcpack files in dist/.
 
-GitHub Actions runs this build on every push to main, uploads a workflow artifact and publishes the three packages as the latest GitHub Release.
+A GitHub Actions workflow is configured to run this build on pushes to main. At the moment the first workflow run ended before its runner started, so prebuilt packages are also committed in downloads/ as direct downloads.
 
 ## Verification status
-Automated structural validation and archive integrity checks are performed by the build script. **The add-on still requires an in-game import and gameplay test on Bedrock 26.66** before it can be called fully game-tested.
+The downloadable archives are ZIP-integrity checked and contain both packs. The add-on still requires an in-game import and gameplay test on Bedrock 26.66 before it can be called fully game-tested.
