@@ -16,6 +16,7 @@ Minecraft Bedrock 26.66 with `min_engine_version` 1.26.0.
 - [x] Local `.mcaddon` and individual `.mcpack` archives generated.
 - [x] Eleven JSON documents parsed and cross-pack references checked.
 - [x] Three archive files passed ZIP integrity checks.
+- [x] Portable `tools/build.py` added for repeatable local packaging.
 - [ ] Import into Minecraft and confirm both packs load.
 - [ ] In-game model / particle / combat validation.
 
@@ -34,4 +35,4 @@ Minecraft Bedrock 26.66 with `min_engine_version` 1.26.0.
 - [ ] Shared progression and unique drops.
 
 ## Verification caveat
-Local structural checks have passed. The add-on has not yet been imported into or visually tested in Minecraft. GitHub Actions runs currently terminate as failures without exposing step logs through the connected API; the installable archives have therefore been built and verified locally rather than claimed as CI artifacts.
+Local structural checks have passed. The add-on has not yet been imported into or visually tested in Minecraft. Packaging currently uses the portable local build script rather than relying on a remote CI job.
