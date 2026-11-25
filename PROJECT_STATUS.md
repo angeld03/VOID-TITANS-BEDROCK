@@ -3,45 +3,35 @@
 _Last updated: 2026-11-25_
 
 ## Target
-Minecraft Bedrock Edition 26.66, using the stable add-on pack format and the 1.26.0 engine component schema baseline.
+Minecraft Bedrock 26.66 with `min_engine_version` 1.26.0.
 
-## Milestones
-
-### M0 — Repository and pack foundation
-- [x] Public GitHub repository connected.
-- [x] Behavior Pack manifest.
-- [x] Resource Pack manifest linked to the Behavior Pack.
-- [x] First custom boss entity definition.
-- [x] Initial custom geometry and animation controller.
-- [x] Pack icons and first original boss texture.
-- [ ] Build reproducible .mcaddon and individual .mcpack files.
+## M0 — Pack foundation
+- [x] GitHub source repository connected and writable.
+- [x] Behavior Pack and Resource Pack manifests linked by UUID.
+- [x] Custom boss entity definition and summon identifier.
+- [x] Initial articulated model, idle and locomotion animation sources.
+- [x] Boss HUD, player targeting, melee damage and loot table.
+- [x] Initial custom texture and pack icons.
+- [x] Custom additive violet particle effect, texture and chest locator.
+- [x] Local `.mcaddon` and individual `.mcpack` archives generated.
+- [x] Eleven JSON documents parsed and cross-pack references checked.
+- [x] Three archive files passed ZIP integrity checks.
 - [ ] Import into Minecraft and confirm both packs load.
+- [ ] In-game model / particle / combat validation.
 
-### M1 — The Void Titan
-- [x] Initial 3D skeletal model source.
-- [x] Idle and locomotion animation sources.
-- [x] Boss HUD and base combat AI configuration.
-- [ ] Refine silhouette and texture painting.
-- [ ] Attack telegraph and slam ability.
-- [ ] Void projectile / ground pulse ability.
-- [ ] Health-threshold phase transition.
-- [ ] Custom particle systems and sound design.
-- [ ] Reward and summoning item.
-- [ ] In-game survival and multiplayer test.
+## M1 — The Void Titan
+- [ ] Refine silhouette, UV map and texture painting.
+- [ ] Add telegraphed ground slam and impact ring.
+- [ ] Add void projectile / ground pulse ability.
+- [ ] Add health-threshold phase transition and attack variants.
+- [ ] Add custom sound design.
+- [ ] Add unique summon item and improved rewards.
+- [ ] Survival and multiplayer tests.
 
-### M2 — Additional Titans
+## M2 — Additional Titans
 - [ ] Abyssal King.
 - [ ] Celestial Devourer.
-- [ ] Shared boss progression and unique drops.
+- [ ] Shared progression and unique drops.
 
-## Verification record
-| Check | State |
-|---|---|
-| GitHub repository writable | Confirmed |
-| Source files committed | Initial foundation |
-| JSON syntax validation | To run on complete source snapshot |
-| Minecraft import test | Not yet performed |
-| In-game visual test | Not yet performed |
-| Multiplayer test | Not yet performed |
-
-A committed file is not proof that Minecraft accepts it. Mark checks complete only after running the corresponding test.
+## Verification caveat
+Local structural checks have passed. The add-on has not yet been imported into or visually tested in Minecraft. GitHub Actions runs currently terminate as failures without exposing step logs through the connected API; the installable archives have therefore been built and verified locally rather than claimed as CI artifacts.
