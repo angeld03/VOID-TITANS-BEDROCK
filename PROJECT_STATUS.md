@@ -3,31 +3,33 @@
 _Last updated: 2026-11-25_
 
 ## Target
-Minecraft Bedrock 26.66 with `min_engine_version` 1.26.0.
+Minecraft Bedrock 26.66 (pack engine baseline 1.26.0).
 
 ## M0 — Pack foundation
 - [x] GitHub source repository connected and writable.
 - [x] Behavior Pack and Resource Pack manifests linked by UUID.
-- [x] Custom boss entity definition and summon identifier.
-- [x] Initial articulated model, idle and locomotion animation sources.
-- [x] Boss HUD, player targeting, melee damage and loot table.
-- [x] Initial custom texture and pack icons.
-- [x] Custom additive violet particle effect, texture and chest locator.
-- [x] Local `.mcaddon` and individual `.mcpack` archives generated.
-- [x] Eleven JSON documents parsed and cross-pack references checked.
-- [x] Three archive files passed ZIP integrity checks.
-- [x] Portable `tools/build.py` added for repeatable local packaging.
-- [ ] Import into Minecraft and confirm both packs load.
-- [ ] In-game model / particle / combat validation.
+- [x] Custom boss entity, spawn egg and summon identifier.
+- [x] Articulated custom model with horns, shoulder armor, claws, chest runes, back spines and orbiting shards.
+- [x] Custom entity texture and pack icons.
+- [x] Idle and locomotion animations.
+- [x] Ground-slam and void-pulse attack animations connected to entity variants.
+- [x] Boss HUD, hostile player targeting, melee damage and loot table.
+- [x] Timed special-attack cycle with wind-up, impact and recovery windows.
+- [x] Violet core aura and radial impact particle effect.
+- [x] English and Spanish boss / spawn egg names.
+- [x] Repeatable local build and structural validation script.
+- [x] GitHub Actions workflow configured to package and publish the add-on automatically.
+- [ ] Import into Minecraft Bedrock 26.66 and confirm both packs load.
+- [ ] In-game model, particle, animation and combat validation.
+- [ ] Dedicated-server / multiplayer test.
 
-## M1 — The Void Titan
-- [ ] Refine silhouette, UV map and texture painting.
-- [ ] Add telegraphed ground slam and impact ring.
-- [ ] Add void projectile / ground pulse ability.
-- [ ] Add health-threshold phase transition and attack variants.
-- [ ] Add custom sound design.
-- [ ] Add unique summon item and improved rewards.
-- [ ] Survival and multiplayer tests.
+## M1 — The Void Titan polish
+- [ ] Final texture paint pass and UV review in-game.
+- [ ] Add sound design and layered audio cues.
+- [ ] Add health-threshold phase transition and phase-two attack set.
+- [ ] Add unique summon item / ritual and arena encounter.
+- [ ] Balance damage against armor and multiplayer groups.
+- [ ] Survival and dedicated-server tests.
 
 ## M2 — Additional Titans
 - [ ] Abyssal King.
@@ -35,4 +37,4 @@ Minecraft Bedrock 26.66 with `min_engine_version` 1.26.0.
 - [ ] Shared progression and unique drops.
 
 ## Verification caveat
-Local structural checks have passed. The add-on has not yet been imported into or visually tested in Minecraft. Packaging currently uses the portable local build script rather than relying on a remote CI job.
+The source is structured and the automated validator checks JSON syntax, UUID linkage, entity/model/animation/particle references, geometry bone parents, required assets and archive integrity. A passing build does not replace importing and testing the add-on inside Minecraft Bedrock.
