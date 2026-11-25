@@ -18,7 +18,9 @@ Minecraft Bedrock 26.66 (pack engine baseline 1.26.0).
 - [x] Violet core aura and radial impact particle effect.
 - [x] English and Spanish boss / spawn egg names.
 - [x] Repeatable local build and structural validation script.
-- [x] GitHub Actions workflow configured to package and publish the add-on automatically.
+- [x] Combined .mcaddon and individual .mcpack packages stored under downloads/.
+- [x] Package ZIP directories and CRC checks performed; both inner pack manifests verified.
+- [x] GitHub Actions workflow added; first execution failed before a runner started.
 - [ ] Import into Minecraft Bedrock 26.66 and confirm both packs load.
 - [ ] In-game model, particle, animation and combat validation.
 - [ ] Dedicated-server / multiplayer test.
@@ -37,4 +39,4 @@ Minecraft Bedrock 26.66 (pack engine baseline 1.26.0).
 - [ ] Shared progression and unique drops.
 
 ## Verification caveat
-The source is structured and the automated validator checks JSON syntax, UUID linkage, entity/model/animation/particle references, geometry bone parents, required assets and archive integrity. A passing build does not replace importing and testing the add-on inside Minecraft Bedrock.
+The archives have been checked for ZIP structure, CRC integrity and pack manifests. A passing archive check does not replace importing and testing the add-on inside Minecraft Bedrock.
