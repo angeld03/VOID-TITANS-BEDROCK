@@ -2,20 +2,24 @@
 
 Date: 2026-11-25
 
-## Passed locally
-- JSON parse for all 11 JSON documents in the Behavior and Resource packs.
-- Behavior Pack UUID matches the Resource Pack dependency.
-- Behavior and client entity identifiers match.
-- Client entity geometry identifier matches the geometry file.
-- Client particle reference matches the particle effect identifier.
-- Texture and icon paths exist.
-- `.mcaddon`, Behavior `.mcpack` and Resource `.mcpack` archives passed ZIP CRC/integrity checks.
+## Automated checks performed by tools/build.py
+- Parse every JSON document in both packs.
+- Confirm Behavior Pack UUID matches the Resource Pack dependency.
+- Confirm entity identifiers match between server and client definitions.
+- Confirm geometry, texture, animation, animation-controller and particle identifiers resolve.
+- Confirm all referenced animation names exist.
+- Confirm every geometry bone parent exists.
+- Confirm required texture and pack-icon files exist and have valid PNG headers.
+- Confirm generated .mcaddon and both .mcpack archives pass ZIP CRC checks.
+- Confirm the combined .mcaddon contains both inner .mcpack packages.
 
-## Not yet performed
+## In-game checks still required
 - Import into Minecraft Bedrock 26.66.
-- Entity spawn and rendering check.
-- Animation and particle playback check.
-- Combat and loot behavior test.
-- Multiplayer / dedicated-server test.
+- Confirm both packs activate without content-log errors.
+- Spawn egg and /summon test.
+- Entity rendering, texture, scale and hitbox review.
+- Idle / locomotion / attack transition and particle playback check.
+- Ground-slam and void-pulse damage range / cooldown test.
+- Loot, multiplayer and dedicated-server tests.
 
-Passing JSON and ZIP checks does not prove engine compatibility or visual correctness. Treat this as a prototype until the in-game checks are completed.
+Passing JSON and ZIP checks does not prove engine compatibility, balance or visual correctness. Do not call this release fully game-tested until the in-game checklist passes.
