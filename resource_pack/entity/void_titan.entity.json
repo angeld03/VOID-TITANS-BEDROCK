@@ -1,0 +1,33 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "voidtitans:void_titan",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/void_titan"
+      },
+      "geometry": {
+        "default": "geometry.voidtitans.void_titan"
+      },
+      "animations": {
+        "idle": "animation.voidtitans.void_titan.idle",
+        "walk": "animation.voidtitans.void_titan.walk"
+      },
+      "scripts": {
+        "animate": [
+          "controller.animation.voidtitans.void_titan"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.voidtitans.void_titan"
+      ],
+      "spawn_egg": {
+        "base_color": "#140d25",
+        "overlay_color": "#9f42ff"
+      }
+    }
+  }
+}
