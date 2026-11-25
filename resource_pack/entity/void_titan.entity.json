@@ -14,7 +14,11 @@
       },
       "animations": {
         "idle": "animation.voidtitans.void_titan.idle",
-        "walk": "animation.voidtitans.void_titan.walk"
+        "walk": "animation.voidtitans.void_titan.walk",
+        "slam_windup": "animation.voidtitans.void_titan.slam_windup",
+        "slam_impact": "animation.voidtitans.void_titan.slam_impact",
+        "pulse_charge": "animation.voidtitans.void_titan.pulse_charge",
+        "pulse_burst": "animation.voidtitans.void_titan.pulse_burst"
       },
       "scripts": {
         "animate": [
@@ -29,7 +33,8 @@
         "overlay_color": "#9f42ff"
       },
       "particle_effects": {
-        "void_aura": "voidtitans:void_spark_aura"
+        "void_aura": "voidtitans:void_spark_aura",
+        "impact": "voidtitans:void_impact"
       }
     }
   }
